@@ -50,7 +50,7 @@
 ### 设置rsyslogd 和 systemd journald
     mkdir /var/log/journal # 持久保存日志的目录
     mkdir /etc/systemd/journald.conf.d
-    cat > /tec/systemd/journald.conf.d/99-prophet.conf << EOF
+    cat > /etc/systemd/journald.conf.d/99-prophet.conf << EOF
     [Journal]
     # 持久化保存到磁盘
     Storage=persistent
