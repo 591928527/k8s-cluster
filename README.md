@@ -141,8 +141,7 @@
     enabled=1
     gpcheck=0
     repo_gpgcheck=0
-    gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
-    http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+    gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
     EOF
 
     yum -y install kubeadm-1.15.1 kubectl-1.15.1 kubelet-1.15.1
