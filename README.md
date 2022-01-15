@@ -47,4 +47,44 @@
 ### 关闭系统不需要的服务
     systemctl stop postfix && systemctl disable postfix
 
+### 设置rsyslogd 和 systemd journald
+    mkdir /var/log/journal # 持久保存日志的目录
+    mkdir /etc/systemd/journald.conf.d
+    cat > /tec/systemd/journald.conf.d/99-prophet.conf << EOF
+    [Journal]
+    # 持久化保存到磁盘
+    Storage=persistent
+
+    # 压缩历史日志
+    Compress=yes
+
+    SyncIntervalSec=5m
+    RateLimitInterval=30s
+    RateLimitBurst=1000
+
+    # 最大占用空间 10G
+    SystemMaxUse=10G
+
+    # 单日志文件最大 200M
+    SystemMaxFileSize=200M
+
+    # 日志保存时间 2 周
+    MaxRetentionSec=2week
+
+    # 不将日志转发到 syslog
+    ForwardToSyslog=no
+    EOF
+
+    systemctl restart systemd-journald
+
+### 升级系统内核为4.44
+CentOS 7.x 系统自带3.10.x内核存在一些Bugs,导致运行Docker、Kubernetes不稳定，例如：rpm-Uvh http://www.elrepo-release-7.0-3.el7.elrepo.noarch
+    rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+    # 安装完成后检查  /boot/grub2/grub.cfg 中对应内核 menuentry 中是否包含 initrd16 配置，如果没有，再安装一次！
+    yum --enablerepo=elrepo-kernel install -y kernel-lt
+    # 设置开机从新内核启动
+    grub2-set-default 'CentOS Linux (4.4.189-1.el7.elrepo.x86_64) 7 (Core)'
+
+
+
 
