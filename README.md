@@ -148,7 +148,8 @@
     systemctl enable kubelet.service
 
 ### 初始化主节点
-    kubeadm config print init-defaults > kubeadm-config.yaml
+        kubeadm config print init-defaults > kubeadm-config.yaml #获取kubeadm defaults 模板
+
         localAPIEndpiont:
             advertiseAddress:192.168.80.150
         kubernetesVersion:v1.15.1
@@ -162,7 +163,7 @@
             SupportIPVSProxyMode: true
         mode: ipvs
     
-    kubeadm init --config=kubeadm-config.yaml --experimental-upload-certs | tee kubeadm-init.log
+       kubeadm init --config=kubeadm-config.yaml --experimental-upload-certs | tee kubeadm-init.log
 
 ### 加入主节点以及其余工作节点
     执行安装日志中的加入命令即可
