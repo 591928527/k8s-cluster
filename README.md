@@ -122,7 +122,7 @@ CentOS 7.x 系统自带3.10.x内核存在一些Bugs,导致运行Docker、Kuberne
     cat > /etc/docker/daemon.json << EOF
     {
         "exec-opts":["native.cgroupdrive=systemd"],
-        "log-drive":"json-file",
+        "log-driver":"json-file",
         "log-opts":{
             "max-size":"100m"
         }
