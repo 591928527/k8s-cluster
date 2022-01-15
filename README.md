@@ -78,7 +78,7 @@
     systemctl restart systemd-journald
 
 ### 升级系统内核为4.44
-CentOS 7.x 系统自带3.10.x内核存在一些Bugs,导致运行Docker、Kubernetes不稳定，例如：rpm-Uvh http://www.elrepo-release-7.0-3.el7.elrepo.noarch
+CentOS 7.x 系统自带3.10.x内核存在一些Bugs,导致运行Docker、Kubernetes不稳定，例如：rpm-Uvh http://www.elrepo-release-7.0-3.el7.elrepo.noarch  
     rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
     # 安装完成后检查  /boot/grub2/grub.cfg 中对应内核 menuentry 中是否包含 initrd16 配置，如果没有，再安装一次！  
     yum --enablerepo=elrepo-kernel install -y kernel-lt
