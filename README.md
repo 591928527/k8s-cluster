@@ -85,6 +85,53 @@ CentOS 7.x 系统自带3.10.x内核存在一些Bugs,导致运行Docker、Kuberne
     # 设置开机从新内核启动  
     grub2-set-default 'CentOS Linux (4.4.189-1.el7.elrepo.x86_64) 7 (Core)'
 
+### kube-proxy开启ipvs的前置条件
+    modprobe br_netfilter  
+    cat > /etc/sysconfig/modules/ipvs.modules << EOF
+    #!/bin/bash
+    modprobe -- ip_vs
+    modprobe -- ip_vs_rr
+    modprobe -- ip_vs_wrr
+    modprobe -- ip_vs_sh
+    modprobe -- ip_conntrack_ipv4
+    EOF
+    chmod 755 /etc/sysconfig/modules/ipvs.modules && bash /etc/sysconfig/modules/ipvs.modules && lsmod | grep -e ip_vs -e nf_conntrack_ipv4
+
+### 安装docker软件
+    yum install -y yum-utils device-mapper-persistent-data lvm2  
+    
+    yum-config-manager \
+      --add-repo \
+      http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo  
+
+    yum update -y && yum install -y docker-ce  
+
+    ## 创建 /etc/docker 目录
+    mkdir /etc/docker
+    ## 配置 daemon
+    cat > /etc/docker/daemon.json << EOF
+    {
+        "exec-opts":["native.cgroupdrive=systemd"],
+        "log-drive":"json-file",
+        "log-opts":{
+            "max-size":"100m"
+        }
+    }
+    EOF
+    mkdir -p /etc/systemd/system/docker.service.d
+
+    #重启docker服务
+    systemctl daemon-restart && systemctl restart docker && systemctl enable docker
+
+
+
+
+
+
+
+
+
+
 
 
 
