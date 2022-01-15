@@ -102,6 +102,9 @@ CentOS 7.x 系统自带3.10.x内核存在一些Bugs,导致运行Docker、Kuberne
     modprobe -- ip_vs_sh
     modprobe -- nf_conntrack
     EOF
+    
+    #注意高版本中 nf_conntrack 代替 nf_conntrack_ipv4
+
     chmod 755 /etc/sysconfig/modules/ipvs.modules && bash /etc/sysconfig/modules/ipvs.modules && lsmod | grep -e ip_vs -e nf_conntrack_ipv4
 
 ### 安装docker软件
