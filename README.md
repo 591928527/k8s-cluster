@@ -123,6 +123,48 @@ CentOS 7.x 系统自带3.10.x内核存在一些Bugs,导致运行Docker、Kuberne
     #重启docker服务
     systemctl daemon-restart && systemctl restart docker && systemctl enable docker
 
+### 安装kubeadm(主从配置)
+    cat << EOF > /etc/yum.repos.d/kubernetes.repo
+    [kubernetes]
+    name=Kubernetes
+    baseurl-http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+    enabled=1
+    gpcheck=0
+    repo_gpgcheck=0
+    gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+    http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+    EOF
+
+    yum -y install kubeadm-1.15.1 kubectl-1.15.1 kubelet-1.15.1
+    systemctl enable kubelet.service
+
+### 初始化主节点
+    kubeadm config print init-defaults > kubeadm-config.yaml
+        localAPIEndpiont:
+            advertiseAddress:192.168.80.150
+        kubernetesVersion:v1.15.1
+        networking:
+            podSubnet:"10.244.0.0/16"
+            serviceSubnet:10.96.0.0/12       
+        ---
+        apiVersion:kubeproxy.config.k8s.io/v1alpha1
+        kind: KubeProxyConfiguration
+        featureGates:
+            SupportIPVSProxyMode: true
+        mode: ipvs
+    
+    kubeadm init --config=kubeadm-config.yaml --experimental-upload-certs | tee kubeadm-init.log
+
+### 加入主节点以及其余工作节点
+    执行安装日志中的加入命令即可
+
+### 部署网络
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Docunmentation/kube-fannel.yml
+
+
+
+
+
 
 
 
