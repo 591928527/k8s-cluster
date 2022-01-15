@@ -131,7 +131,7 @@ CentOS 7.x 系统自带3.10.x内核存在一些Bugs,导致运行Docker、Kuberne
     mkdir -p /etc/systemd/system/docker.service.d
 
     #重启docker服务
-    systemctl daemon-restart && systemctl restart docker && systemctl enable docker
+    systemctl daemon-reload && systemctl restart docker && systemctl enable docker
 
 ### 安装kubeadm(主从配置)
     cat << EOF > /etc/yum.repos.d/kubernetes.repo
