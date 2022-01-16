@@ -125,7 +125,8 @@
         "log-driver":"json-file",
         "log-opts":{
             "max-size":"100m"
-        }
+        },
+        "insecure-registries":["https://hub.atguigu.com"]
     }
     EOF
     mkdir -p /etc/systemd/system/docker.service.d
