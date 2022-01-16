@@ -167,9 +167,12 @@
 
 ### 加入主节点以及其余工作节点
     执行安装日志中的加入命令即可
+    mkdir -p $HOME/.kube
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ### 部署网络
-    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Docunmentation/kube-fannel.yml
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
 
 
