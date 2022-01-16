@@ -174,6 +174,8 @@
 ### 部署网络
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
+    kubectl create -f kube-flannel.yml
+
 
 
 
