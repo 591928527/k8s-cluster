@@ -13,8 +13,14 @@
      kubectl edit svc nginx-deployment  #nginx-deployment：deployment对象名
 
      #查询deployment对象  
-     kubectl get deployment  
-     
+     kubectl get deployment
+
+     #deployment滚动更新  
+     kubectl set image  deployment/nginx-deployment  nginx=nginx:1.91
+
+     #deployment对象回滚  
+     kubectl rollout undo  deployment/nginx-deployment --to-revision=2
+
      #查询rs对象  
      kubectl get rs  
      

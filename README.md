@@ -91,6 +91,7 @@
 
     # 设置开机从新内核启动  
     grub2-set-default 'CentOS Linux (4.4.189-1.el7.elrepo.x86_64) 7 (Core)'
+    grub2-set-default 'CentOS Linux (5.4.171-1.el7.elrepo.x86_64) 7 (Core)'
 
 ### kube-proxy开启ipvs的前置条件
     modprobe br_netfilter  
@@ -156,7 +157,7 @@
         kubernetesVersion:v1.15.1
         networking:
             podSubnet:"10.244.0.0/16"
-            serviceSubnet:10.96.0.0/12       
+            serviceSubnet:"10.96.0.0/12"       
         ---
         apiVersion:kubeproxy.config.k8s.io/v1alpha1
         kind: KubeProxyConfiguration
