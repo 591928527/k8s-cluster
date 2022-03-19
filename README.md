@@ -1,6 +1,9 @@
 # k8s-cluster
+https://blog.csdn.net/weixin_34161029/article/details/91440099?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1.queryctrv4&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1.queryctrv4&utm_relevant_index=1
 
-# analysis:https://github.com/jindezgm/k8s-src-analysis
+https://blog.csdn.net/zhonglinzhang/article/details/77767847
+
+    analysis:https://github.com/jindezgm/k8s-src-analysis
 
 ### 设置系统主机名以及Host文件的相互解析
     hostnamectl set-hostname k8s-master01
